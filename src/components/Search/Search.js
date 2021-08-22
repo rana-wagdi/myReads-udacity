@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import * as BooksAPI from '../../BooksAPI';
-import BookShelf from '../Home/BookShelf';
-import ChangeShelf from '../Home/ChangeShelf';
+
+import Books from '../Home/Books';
 
 
 class Search extends React.Component {
@@ -36,7 +36,7 @@ class Search extends React.Component {
               <div>No results found</div>
               : books.map((book, index) => {
                   return (
-                      <BookShelf
+                      <Books
                           key={book.id}
                           books={books}
                           book={book}
