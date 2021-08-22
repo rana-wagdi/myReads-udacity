@@ -1,1 +1,1 @@
-# myReads-udacity
+# myReadsApp

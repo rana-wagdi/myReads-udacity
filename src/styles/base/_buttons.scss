@@ -1,0 +1,13 @@
+.button{
+    background-color: $white;
+    border-radius: .9rem;
+    color: $black;
+    padding: 1rem 1.5rem;
+    margin: .5rem;
+    border: none;
+    position: center;
+    cursor: pointer;
+    &:hover{
+        background-color: $light-peach;
+    }
+}
