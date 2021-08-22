@@ -49,8 +49,7 @@ class Search extends React.Component {
 
 
     render() {
-        const { query, newBooks, searchErr } = this.state;
-        const { books, changeShelf } = this.props;
+
     
         return (
           <div className="search-books">
@@ -69,12 +68,6 @@ class Search extends React.Component {
               
 
              { this.renderSearchResults()}
-                  {/* <BookShelf
-                    book={book}
-                    books={books}
-                    key={book.id}
-                    changeShelf={changeShelf}
-                  /> */}
    
               </ol>
             </div>
