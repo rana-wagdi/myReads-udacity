@@ -37,10 +37,7 @@ class BookList extends React.Component {
 
 }
 
-BookList.propTypes = {
-    books: PropTypes.array.isRequired,
-    changeShelf: PropTypes.func.isRequired
-};
+
 
 
 export default BookList;

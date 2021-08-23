@@ -15,41 +15,31 @@ class Search extends React.Component {
 
       state = {
         books: [],
+        newBooks: [],
         query: ''
     };
   
-    handleUpdateQuery(query) {
-        BooksAPI.search(query).then(books => books ? this.setState({ books }) : []);
-        this.setState({ query });
-    }
+    getBooks = event => {
+      const query = event.target.value;
+      this.setState({ query });
   
-    changeShelf(book, shelf) {
-      BooksAPI.update(book, shelf)
-          .then(() => shelf !== 'none' ? alert(`${book.title} has been added to your shelf!`) : null)
-          .catch(() => alert('Something went wrong! Please try again!'));
-    }
-    renderSearchResults() {
-      const { books, query } = this.state;
-
+      // if user input => run the search
       if (query) {
-          return books.error ?
-              <div>No results found</div>
-              : books.map((book, index) => {
-                  return (
-                      <Books
-                          key={book.id}
-                          books={books}
-                          book={book}
-                          changeShelf={this.changeShelf.bind(this)}
-                      />
-                  );
-              });
-      }
-  }
-
+        BooksAPI.search(query.trim(), 20).then(books => {
+          books.length > 0
+            ? this.setState({ newBooks: books, searchErr: false })
+            : this.setState({ newBooks: [], searchErr: true });
+        });
+  
+        // if query is empty => reset state to default
+      } else this.setState({ newBooks: [], searchErr: false });
+    };
+  
 
     render() {
-
+      const { query, newBooks, searchErr } = this.state;
+      const { books, changeShelf } = this.props;
+  
     
         return (
           <div className="search-books">
@@ -57,7 +47,7 @@ class Search extends React.Component {
               <Link className="close-search" to="/">Close </Link>
               <div className="search-books-input-wrapper">
                
-                <input type="text" value={this.state.query} onChange={e => this.handleUpdateQuery(e.target.value)} placeholder="Search by title or author"/>
+                <input type="text" value={this.state.query} onChange={this.getBooks} placeholder="Search by title or author"/>
 
               </div>
             </div>
@@ -67,8 +57,14 @@ class Search extends React.Component {
               <ol className="books-grid">
               
 
-             { this.renderSearchResults()}
-   
+              {newBooks.map(book => (
+                  <Books
+                    book={book}
+                    books={books}
+                    key={book.id}
+                    changeShelf={changeShelf}
+                  />
+                ))}
               </ol>
             </div>
           
